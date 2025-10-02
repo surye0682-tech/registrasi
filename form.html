@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body { font-family: Arial, sans-serif; padding: 20px; }
+      input, textarea { display: block; margin: 10px 0; width: 100%; padding: 8px; }
+      button { padding: 10px 20px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+      button:hover { background: #45a049; }
+    </style>
+  </head>
+  <body>
+    <h2>Form Registrasi</h2>
+    <form id="myForm">
+      <label>Nama:</label>
+      <input type="text" name="nama" required>
+      
+      <label>Email:</label>
+      <input type="email" name="email" required>
+      
+      <label>Pesan:</label>
+      <textarea name="pesan"></textarea>
+      
+      <button type="submit">Kirim</button>
+    </form>
+    <p id="status"></p>
+
+    <script>
+      const form = document.getElementById("myForm");
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+        const data = {
+          nama: form.nama.value,
+          email: form.email.value,
+          pesan: form.pesan.value
+        };
+        google.script.run.withSuccessHandler(msg => {
+          document.getElementById("status").innerText = msg;
+          form.reset();
+        }).simpanData(data);
+      });
+    </script>
+  </body>
+</html>
